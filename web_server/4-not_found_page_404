@@ -28,5 +28,11 @@ echo "server {
 }" > /etc/nginx/sites-available/default
 sudo chown -R root:root /var/www/html
 sudo chown -R root:root /etc/nginx/sites-available/default
-sudo service nginx restart
-sudo service nginx reload
+# Make sure we have proper permissions
+sudo chmod -R 755 /var/www/html
+# Test Nginx configuration to catch potential syntax errors
+sudo nginx -t
+# Use proper restart sequence
+sudo service nginx stop
+sudo service nginx start
+# No need for reload after restart
